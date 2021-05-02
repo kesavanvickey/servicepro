@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E840FAFE-DF2C-4B9F-9BA3-DE8FE0F27F21}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ServicePro.BAL</RootNamespace>
+    <AssemblyName>ServicePro.BAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.2.0.3.0\lib\net40\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common.cs" />
+    <Compile Include="CommonUtil.cs" />
+    <Compile Include="Models\AdditionalColumnMaster.cs" />
+    <Compile Include="Models\AddressMaster.cs" />
+    <Compile Include="Models\ComboBox.cs" />
+    <Compile Include="Models\CompanyMaster.cs" />
+    <Compile Include="Models\CustomerMaster.cs" />
+    <Compile Include="Models\EmployeeMaster.cs" />
+    <Compile Include="Models\IDProofMaster.cs" />
+    <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\InvoiceDetail.cs" />
+    <Compile Include="Models\ItemReceivedHandler.cs" />
+    <Compile Include="Models\MasterControl.cs" />
+    <Compile Include="Models\PaymentReceivable.cs" />
+    <Compile Include="Models\PaymentReceived.cs" />
+    <Compile Include="Models\ServiceItemDetail.cs" />
+    <Compile Include="Models\ServiceItemMaster.cs" />
+    <Compile Include="Models\StorageMaster.cs" />
+    <Compile Include="Models\TimeSheet.cs" />
+    <Compile Include="Models\TypeDetailMaster.cs" />
+    <Compile Include="Models\TypeMaster.cs" />
+    <Compile Include="Models\UserMaster.cs" />
+    <Compile Include="Models\WorkOrderMaster.cs" />
+    <Compile Include="NHibernate\Mapping\AdditionalColumnMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\AddressMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\CompanyMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\CustomerMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\EmployeeMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\IDProofMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\InvoiceDetailMap.cs" />
+    <Compile Include="NHibernate\Mapping\InvoiceMap.cs" />
+    <Compile Include="NHibernate\Mapping\ItemReceivedHandlerMap.cs" />
+    <Compile Include="NHibernate\Mapping\MasterControlMap.cs" />
+    <Compile Include="NHibernate\Mapping\PaymentReceivableMap.cs" />
+    <Compile Include="NHibernate\Mapping\PaymentReceivedMap.cs" />
+    <Compile Include="NHibernate\Mapping\ServiceItemDetailMap.cs" />
+    <Compile Include="NHibernate\Mapping\ServiceItemMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\StorageMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\TimeSheetMap.cs" />
+    <Compile Include="NHibernate\Mapping\TypeDetailMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\TypeMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\UserMasterMap.cs" />
+    <Compile Include="NHibernate\Mapping\WorkOrderMasterMap.cs" />
+    <Compile Include="NHibernate\NHibernateHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AdditionalColumnMasterService.cs" />
+    <Compile Include="Services\AddressMasterService.cs" />
+    <Compile Include="Services\CompanyMasterService.cs" />
+    <Compile Include="Services\CustomerMasterService.cs" />
+    <Compile Include="Services\EmployeeMasterService.cs" />
+    <Compile Include="Services\IDProofMasterService.cs" />
+    <Compile Include="Services\InvoiceService.cs" />
+    <Compile Include="Services\ItemReceivedHandlerService.cs" />
+    <Compile Include="Services\MasterControlService.cs" />
+    <Compile Include="Services\PaymentReceivableService.cs" />
+    <Compile Include="Services\PaymentReceivedService.cs" />
+    <Compile Include="Services\ServiceItemDetailService.cs" />
+    <Compile Include="Services\ServiceItemMasterService.cs" />
+    <Compile Include="Services\StorageMasterService.cs" />
+    <Compile Include="Services\TimeSheetService.cs" />
+    <Compile Include="Services\TypeDetailMasterService.cs" />
+    <Compile Include="Services\TypeMasterService.cs" />
+    <Compile Include="Services\UserMasterService.cs" />
+    <Compile Include="Services\WorkOrderMasterService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

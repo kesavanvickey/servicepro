@@ -1,0 +1,123 @@
+﻿@using ServicePro.BAL
+@model ItemReceivedHandler
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- jQuery 2.2.3 -->
+<script src="/UI/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="~/Scripts/ServicePro/ItemReceivedHandler.js"></script>
+
+<input type="hidden" id="hdIsActive" value="@Model.IsActive" />
+<input type="hidden" id="hdItemReceivedHandler_ID" value="@Model.ItemReceivedHandler_ID" />
+<input type="hidden" id="hdServiceItemMaster_ID" value="@Model.ServiceItemMaster_ID" />
+<input type="hidden" id="hdCustomerMaster_ID" value="@Model.CustomerMaster_ID" />
+<input type="hidden" id="hdEmployeeMaster_ID" value="@Model.EmployeeMaster_ID" />
+<input type="hidden" id="hdReceivedDateTime" value="@Model.ReceivedDateTime" />
+
+<div class="container-fluid">
+    <div class="col-md-offset-2 col-md-8 col-sm-12" style="padding-top:80px;">
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Service Item
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <select id="ServiceItem" style="width:100%;" />
+            </div>
+        </div>
+        <div>
+            <div>
+                <select />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Employee
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <select id="Employee" style="width:100%;" />
+            </div>
+        </div>
+        <div>
+            <div>
+                <select />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Customer
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <select id="Customer" style="width:100%;" />
+            </div>
+        </div>
+        <div>
+            <div>
+                <select />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Comments
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <textarea class="form-control" id="Comments">@Model.Comments</textarea>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Received DateTime
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <div class="input-group col-sm-12">
+                    <input class="form-control flatpickr" id="ReceivedDateTime" type="text" value="">                    
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Active
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <input type="checkbox" class="checkbox" id="IsActive" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ItemReceivedHandler Grid Starts here -->
+<div class="container-fluid fill" id="ItemReceivedHandlerList" style="display:none;">
+    <br />
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4">
+            <div class="input-group">
+                <input type="text" id="searchItemReceivedHandler" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button type="button" id="btnSearchItemReceivedHandler" class="btn btn-default">Search</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <br />
+    <table id="ItemReceivedHandlerGrid" data-source="@Url.Action("GetItemReceivedHandlerGrid")"></table>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>

@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "_Master";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Global.PageName</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/UI/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/UI/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/UI/dist/css/AdminLTE.min.css">
+    @Styles.Render("~/bundles/toastr/css")
+    <style>
+        #LoadingImg {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: #666;
+            background-image: url('/UI/dist/img/loading.gif');
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 10000000;
+            opacity: 0.4;
+            filter: alpha(opacity=40); /* For IE8 and earlier */
+            position: fixed;
+        }
+    </style>
+</head>
+<body class="hold-transition register-page">
+    <div class="register-box">
+        <div class="register-logo">
+            <a href="#"><b>Service</b>Pro</a>
+        </div>
+        @RenderBody()
+        <!-- /.form-box -->
+    </div>
+
+    <div id="LoadingImg" style="display:none">
+    </div>
+    <!-- /.register-box -->
+    <!-- jQuery 2.2.3 -->
+    <script src="../../UI/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../UI/bootstrap/js/bootstrap.min.js"></script>
+    @Scripts.Render("~/bundles/toastr/js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

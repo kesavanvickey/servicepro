@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+    ViewBag.Title = "Index";
+    <script src="~/Scripts/Master/Activation.js"></script>
+}
+
+<div class="register-box-body">
+
+    <p class="login-box-msg">Product Activation</p>
+        <div class="form-group has-feedback">
+            <input type="text" id="ProductKey" class="form-control" placeholder="Product Key">
+            <span class="glyphicon glyphicon-registration-mark form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input type="text" id="InstalledBy" class="form-control" placeholder="Installed By">
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input type="text" id="CompanyName" class="form-control" placeholder="Company Name">
+            <span class="glyphicon glyphicon-home form-control-feedback"></span>
+        </div>
+        <div class="row">
+            <!-- /.col -->
+            <div class="col-xs-offset-8 col-xs-4">
+                <button onclick="Save();" class="btn btn-primary btn-block btn-flat">Activate</button>
+            </div>
+            <!-- /.col -->
+        </div>
+</div>

@@ -1,0 +1,260 @@
+﻿@using ServicePro.BAL;
+@model Invoice
+@{
+    ViewBag.Title = "Invoice";
+}
+
+<script src="~/Scripts/Master/Home.js"></script>
+
+@{
+if (Model.InvoiceID > 0)
+{
+Layout = "";
+<html>
+    <head>
+        <title>INVOICE-@Model.InvoiceID</title>
+        <link href="~/UI/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <style>
+            body {
+                width: 900px;
+                margin: 0px auto;
+                font-family: 'sans-serif';
+            }
+            .table {
+                margin-bottom: 0px;
+                font-size: small;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="border: 1px solid #ddd;padding:0px 2px 0px 2px;">
+            <table class="table" style="border: 1px solid #ddd;">
+                <tbody>
+                    <tr>
+                        <td>        
+                            <img src="@Global.CompanyLogo" height="100" width="100" />        
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                       <h3 style="text-transform:uppercase;">@Model.CompanyName</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6>@Model.CompanyAddress</h6>
+                                        <h6>@Model.CompanyContactNo</h6>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td style="padding-top: 20px;">
+                                        <h5><label class="control-label">DateTime</label>: @Model.PrintDateTime</h5>
+                                        <h5><label class="control-label">Invoice No</label>: @Model.InvoiceID</h5>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <label class="control-label">SERVICE ID</label>: @Model.ServiceItemId
+                    </td>
+                    <td style="text-align:right;">
+                        <label class="control-label">CUSTOMER ID</label>: @Model.CustomerId
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="control-label">SERVICE ITEM</label>: @Model.ItemName
+                    </td>
+                    <td style="text-align:right;">
+                        <label class="control-label">CUSTOMER NAME</label>: @Model.CustomerName
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label class="control-label">ORDERED ON</label>: @Model.ItemReceivedDateTime
+                    </td>
+                </tr>
+            </table>
+            <table class="table table-bordered" style="text-align:center;">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;">
+                            Service Details
+                        </th>
+                        <th style="text-align:center;">
+                            Status
+                        </th>
+                        <th style="text-align:right;">
+                            <i>Amount</i>
+                        </th>
+                    </tr>
+                   @{
+                       foreach (var itemTable in Model.InvoiceDetail)
+                       { 
+                           if(itemTable.Type == "ItemDetail")
+                           {
+                           <tr>
+                               <td>
+                                   @itemTable.Comments
+                               </td>
+                               <td>
+                                   @itemTable.StatusType                                   
+                               </td>
+                               <td style="text-align:right;">
+                                   @itemTable.Amount
+                               </td>
+                           </tr>   
+                           }
+                        }
+                   } 
+                   <tr>
+                       <td colspan="2" style="text-align: right; font-weight: bold;">
+                           <i>Total Amount</i>
+                       </td>
+                       <td style="text-align: right; font-weight: bold; font-size: medium;">
+                           ₹ @Model.ItemDetailTotalAmount
+                       </td>
+                   </tr>
+                </thead>
+            </table>
+            <table class="table table-bordered" style="text-align:center;">
+                <thead>
+                    <tr>
+                        <th style="text-align:center;">
+                            Ref No
+                        </th>
+                        <th style="text-align:center;">
+                            Payment Mode
+                        </th>
+                        <th style="text-align:center;">
+                            Received DateTime
+                        </th>
+                        <th style="text-align: right;">
+                            <i>Amount</i>
+                        </th>
+                    </tr>
+                    @{
+    foreach (var paymentTable in Model.InvoiceDetail)
+    {
+        if (paymentTable.Type == "Payment")
+        {
+            <tr>
+                <td>
+                    @paymentTable.RefNo
+                </td>
+                <td>
+                    @paymentTable.PaymentType
+                </td>
+                <td>
+                    @paymentTable.ReceivedDateTime
+                </td>
+                <td style="text-align:right;">
+                    @paymentTable.Amount
+                </td>
+            </tr>
+        }
+    }
+                    }
+                    <tr>
+                        <td colspan="2" rowspan="2">
+                            @{
+                                if(!string.IsNullOrEmpty(Global.ReportSignature))
+                                {
+                                    <h6><i><span style="color:grey;">@Global.ReportSignature</span></i></h6>
+                                }
+                            }
+                            @{
+                                if (!string.IsNullOrEmpty(Model.DeliveredDateTime))
+                                { 
+                                 <h6 style="color:grey;"><i>This Item was Delivered On @Model.DeliveredDateTime</i></h6>      
+                                }
+                            }
+                        </td>
+                        <td style="text-align: right; font-weight: bold;">
+                            <i>Paid Amount</i>
+                        </td>
+                        <td style="text-align: right; font-weight: bold; font-size: medium;">
+                            ₹ @Model.PaidAmount
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; font-weight: bold;">
+                           <i>Balance</i> 
+                        </td>
+                        <td style="text-align: right; font-weight: bold; font-size: medium;">
+                            ₹ @Model.Balance
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+            @{
+                if(!string.IsNullOrEmpty(Global.ReportBottom))
+                {
+                    <div style="text-align:center;border:1px solid #ddd;">
+                        <h6 style="color:grey;"><i>@Global.ReportBottom</i></h6>
+                    </div>
+                }
+            }
+        </div>
+    </body>
+</html>
+}
+else
+{
+    <div class="container-fluid">
+        <div class="col-md-offset-2 col-md-8 col-sm-12" style="padding-top:80px;">
+            <div class="row form-group">
+                <div class="col-sm-3">
+                    <label class="control-label">
+                        Generate
+                    </label>
+                </div>
+                <div class="col-sm-8">
+                    <select id="ServiceItem" onchange="onChangeServiceItem()" style="width:100%;" />
+                </div>
+            </div>
+            <div>
+                <div>
+                    <select />
+                </div>
+            </div>
+            <a id="callerId" style="visibility:hidden;" href="" target="_new"></a>
+        </div>
+    </div>
+    
+        <!-- Invoice Grid Starts here -->
+    <div class="container-fluid fill" id="InvoiceGridList" style="display:none;">
+        <br />
+        <div class="row">
+            <div class="col-md-offset-8 col-md-4">
+                <div class="input-group">
+                    <input type="text" id="searchInvoice" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button type="button" id="btnSearchInvoice" class="btn btn-default">Search</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <table id="InvoiceGrid" data-source="@Url.Action("GetInvoiceGrid")"></table>
+    </div>
+    }
+}
+
+<script>
+    $(document).ready(function () {
+        $('#NewAction').css('display', 'none');
+        $('#SaveAction').css('display', 'none');
+        $('#DeleteAction').css('display', 'none');
+    });
+</script>

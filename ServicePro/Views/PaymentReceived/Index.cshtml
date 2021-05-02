@@ -1,0 +1,178 @@
+﻿@using ServicePro.BAL
+@model PaymentReceived
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- jQuery 2.2.3 -->
+<script src="/UI/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="~/Scripts/ServicePro/PaymentReceived.js"></script>
+
+<input type="hidden" id="hdServiceItemMaster_ID" value="@Model.ServiceItemMaster_ID" />
+<input type="hidden" id="hdPaymentReceived_ID" value="@Model.PaymentReceived_ID" />
+<input type="hidden" id="hdServiceItemMaster_ID" value="@Model.ServiceItemMaster_ID" />
+<input type="hidden" id="hdComments" value="@Model.Comments" />
+<input type="hidden" id="hdPaymentType" value="@Model.PaymentType" />
+<input type="hidden" id="hdIsActive" value="@Model.IsActive" />
+<input type="hidden" id="hdReceivedDateTime" value="@Model.ReceivedDateTime" />
+<input type="hidden" id="hdItemReceivedHandler" value="@Model.ItemReceivedHandler" />
+<input type="hidden" id="hdAmount" value="@Model.Amount" />
+
+<input type="hidden" id="hdBalance" value="0" />
+
+
+<div class="container-fluid">
+    <div class="col-md-offset-2 col-md-8 col-sm-12" style="padding-top:80px;">
+        <div class="container-fluid" id="showItemReceived" style="background-color:white;margin:10px;display:none;">
+            <div style="text-align: center; color: red;">
+                <div class="btn" onclick="GoToItemReceived()">This Item has Received</div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    ServiceItem
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <select id="ServiceItem" onchange="onChangeServiceItem(this)" style="width:100%;" />
+            </div>
+        </div>
+        <div>
+            <div>
+                <select />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="container-fluid" style="margin:20px;">
+            <div class="col-md-4">
+                <label class="control-label">CustomerName: </label><span id="onLoadCustomerName" style="margin: 10px;"></span>
+            </div>
+            <div class="col-md-offset-4 col-md-4">
+                <label class="control-label">ServiceItem Ref No: </label><span style="margin: 10px;"></span>
+            </div>
+        </div>
+        <table class="table table-condensed table-responsive table-bordered">
+            <thead>
+                <tr style="text-align:center;">
+                    <td>
+                        <label class="control-label">Amount</label>
+                    </td>
+                    <td>
+                        <label class="control-label">Payment Mode</label>
+                    </td>
+                    <td>
+                        <label class="control-label">Ref No</label>
+                    </td>
+                    <td>
+                        <label class="control-label">Received DateTime</label>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <input type="number" class="form-control" id="Amount" value="@Model.Amount" />
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <select id="PaymentType" style="width:100%;" />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <select />
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="PaymentReferenceNo" value="@Model.PaymentReferenceNo" />
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <div class="input-group col-sm-12">
+                                    <input class="form-control flatpickr" id="ReceivedDateTime" type="text" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-condensed table-bordered table-responsive table-hover" id="PaymentTableInsert">
+            <tbody>
+                <tr style="text-align:center;">
+                    <td>
+                        <label class="control-label">Comments</label>
+                    </td>
+                    <td>
+                        <label class="control-label">Work Status</label>
+                    </td>
+                    <td>
+                        <label class="control-label">Payable Amount</label>
+                    </td>
+                </tr>
+                <tr style="text-align:right;">
+                    <td colspan="2">
+                        <label class="control-label" style="font-size: 18px;">Total Payable Amount</label>
+                    </td>
+                    <td id="onLoadPayableTotal" style="font-size: 20px;"></td>
+                </tr>
+                <tr style="text-align:right;">
+                    <td colspan="2">
+                        <label class="control-label" style="font-size: 18px;">Total Paid Amount</label>
+                    </td>
+                    <td id="onLoadPaidTotal" style="font-size: 20px;"></td>
+                </tr>
+                <tr style="text-align:right;">
+                    <td colspan="2">
+                        <label class="control-label" style="font-size: 18px;">Balance</label>
+                    </td>
+                    <td id="onLoadBalance" style="font-size: 20px;"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- PaymentReceived Grid Starts here -->
+<div class="container-fluid fill" id="PaymentReceivedList" style="display:none;">
+    <br />
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4">
+            <div class="input-group">
+                <input type="text" id="searchPaymentReceived" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button type="button" id="btnSearchPaymentReceived" class="btn btn-default">Search</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <br />
+    <table id="PaymentReceivedGrid" data-source="@Url.Action("GetPaymentReceivedGrid")"></table>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#Comments').select2({});
+        $('#ServiceItem').select2({});
+        $('#PaymentType').select2({});
+
+    });
+</script>
+
+

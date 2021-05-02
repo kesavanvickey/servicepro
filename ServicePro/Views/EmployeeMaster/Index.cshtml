@@ -1,0 +1,487 @@
+﻿@using ServicePro.BAL;
+@using ServicePro
+@model EmployeeMaster
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- jQuery 2.2.3 -->
+<script src="/UI/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="~/Scripts/Master/EmployeeMaster.js"></script>
+
+<input type="hidden" id="hdEmployeeMaster_ID" value="@Model.EmployeeMaster_ID" />
+<input type="hidden" id="hdIsActive" value="@Model.IsActive" />
+<input type="hidden" id="hdEmployeeCodeTemplate" value="@Model.EmployeeCodeTemplate" />
+<input type="hidden" id="hdEmployeeType" value="@Model.EmployeeType" />
+<input type="hidden" id="hdDOB" value="@Model.DOB"/>
+<input type="hidden" id="hdJointDate" value="@Model.JointDate" />
+<input type="hidden" id="hdGender" value="@Model.Gender" />
+
+
+<div class="container-fluid">
+    <div class="col-md-offset-2 col-md-8 col-sm-12" style="padding-top:80px;">
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    EmployeeCode Template
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <select id="EmployeeCodeTemplate" style="width:100%;" />
+            </div>
+        </div>
+        <div>
+            <div>
+                <select />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Employee Code
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" value="@Model.EmployeeCode" class="form-control" id="EmployeeCode">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Employee Name
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" value="@Model.EmployeeName" class="form-control" id="EmployeeName">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Employee Type
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <select id="EmployeeType" style="width:100%;" />
+            </div>
+        </div>
+        <div>
+            <div>
+                <select />
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    DOB
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <div class="input-group col-sm-12">
+                    <input class="form-control flatpickr" id="DOB" type="text" value="">
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Gender
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <select id="Gender" style="width:100%"/>
+            </div>
+        </div>
+        <div>
+            <div>
+                <select/>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Joint DateTime
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <div class="input-group col-sm-12">
+                    <input class="form-control flatpickr" id="JointDate" type="text" value="">
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label class="control-label">
+                    Active
+                </label>
+            </div>
+            <div class="col-sm-8">
+                <input type="checkbox" class="checkbox" id="IsActive" />
+            </div>
+        </div>
+     </div>
+</div>
+
+<!-- Employee Master Grid Starts here -->
+<div class="container-fluid fill" id="EmployeeMasterGridList" style="display:none;">
+    <br />
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4">
+            <div class="input-group">
+                <input type="text" id="searchEmployeeMaster" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button type="button" id="btnSearchEmployeeMaster" class="btn btn-default">Search</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <br />
+    <table id="EmployeeMasterGrid" data-source="@Url.Action("GetEmployeeMasterGrid")"></table>
+</div>
+
+
+
+
+<!-- AddressMaster Grid Starts here -->
+
+<div class="container-fluid fill" id="AddressGridList" style="display:none;">
+    <br />
+    <div class="row">
+        <div class="col-sm-offset-3 col-md-9">
+            <button type="button" id="btnAddAddress" class="btn btn-default pull-right">Add Address</button>
+        </div>
+    </div>
+    <br />
+    <table id="AddressGrid" data-source="@Url.Action("GetAddress", "Home")"></table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="AddressModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="AddressLabel">Address</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="AddressMaster_ID" />
+                    <input type="hidden" id="AddressMaster_Created_UserID" />
+                    <input type="hidden" id="AddressMaster_Created_DateTime" />
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Address Type
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select id="AddressType" style="width:100%;" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <select />
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Address 1
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="Address1" placeholder="Address1" tabindex="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Address 2
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="Address2" placeholder="Address2" tabindex="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Address 3
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="Address3" placeholder="Address3" tabindex="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                City
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select id="City" style="width:100%;" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <select />
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                State
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select id="State" style="width:100%;" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <select />
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Country
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select id="Country" style="width:100%;" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <select />
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Pincode
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="Pincode" placeholder="Pincode" tabindex="10">
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                ContactNo1
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="ContactNo1" placeholder="ContactNo1" tabindex="10">
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                ContactNo2
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="ContactNo2" placeholder="ContactNo2" tabindex="10">
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Email
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="Email" placeholder="Email" tabindex="10">
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Active
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="checkbox" class="checkbox" id="IsActiveAddress" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="14">Close</button>
+                <button type="button" id="btnAddressSave" class="btn btn-primary" tabindex="13">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Here  -->
+<!-- AddressMaster Grid End here -->
+<!-- IDProof Grid Starts here -->
+
+<div class="container-fluid fill" id="IDProofGridList" style="display:none;">
+    <br />
+    <div class="row">
+        <div class="col-sm-offset-3 col-md-9">
+            <button type="button" id="btnAddIDProof" class="btn btn-default pull-right">Add IDProof</button>
+        </div>
+    </div>
+    <br />
+    <table id="IDProofGrid" data-source="@Url.Action("GetIDProof","Home")"></table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="IDProofModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="IDProofLabel">IDProof</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="IDProofMaster_ID" />
+                    <input type="hidden" id="IDProof_Created_UserID" />
+                    <input type="hidden" id="IDProof_Created_DateTime" />
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                IDProof Type
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select id="IDProofType" style="width:100%;" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <select />
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                IDProof Data
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="IDProofData" placeholder="IDProof Data" tabindex="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Active
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="checkbox" class="checkbox" id="IsActiveIDProof" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="14">Close</button>
+                <button type="button" id="btnIDProofSave" class="btn btn-primary" tabindex="13">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Here  -->
+<!-- StorageMaster Grid Starts here -->
+
+<div class="container-fluid fill" id="StorageMasterGridList" style="display:none;">
+    <br />
+    <div class="row">
+        <div class="col-sm-offset-3 col-md-9">
+            <button type="button" id="btnAddStorageMaster" class="btn btn-default pull-right">Add StorageMaster</button>
+        </div>
+    </div>
+    <br />
+    <table id="StorageMasterGrid" data-source="@Url.Action("GetStorageMaster","Home")"></table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="StorageMasterModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="StorageMasterLabel">StorageMaster</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="StorageMaster_ID" />
+                    <input type="hidden" id="StorageMaster_Created_UserID" />
+                    <input type="hidden" id="StorageMaster_Created_DateTime" />
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                File Name
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="FileName" placeholder="File Name" tabindex="10" />
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Storage Type
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <select id="StorageType" style="width:100%;" />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <select />
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                StorageMaster Data
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="file" id="StorageMasterData" placeholder="StorageMaster Data" tabindex="10">
+                            <label class="control-label" style="display:none;" id="StorageMasterDataLabel"></label>
+                        </div>
+                    </div>
+                    <div class="row form-group container-fluid">
+                        <div class="col-sm-3">
+                            <label class="control-label">
+                                Active
+                            </label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="checkbox" class="checkbox" id="IsActiveStorageMaster" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="14">Close</button>
+                <button type="button" id="btnStorageMasterSave" class="btn btn-primary" tabindex="13">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Here  -->
+
+
+
+<script>
+    $(document).ready(function () {
+        
+    });
+</script>

@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+    ViewBag.Title = "Index";
+    <script src="~/Scripts/Master/Master.js"></script>
+}
+<div class="register-box-body">
+
+    <p class="login-box-msg">CompanyMaster</p>
+    <div class="form-group has-feedback">
+        <input type="text" id="CompanyName" class="form-control" placeholder="Company Name" tabindex="1">
+        <span class="glyphicon glyphicon-home form-control-feedback"></span>
+    </div>
+    <div class="form-group has-feedback">
+        <input type="text" id="CompanyType" class="form-control" placeholder="Company Type" tabindex="2">
+        <span class="glyphicon form-control-feedback"></span>
+    </div>
+    <div class="form-group has-feedback">
+        <input type="text" id="TinNo" class="form-control" placeholder="TinNo" tabindex="3">
+        <span class="glyphicon glyphicon-info-sign form-control-feedback"></span>
+    </div>
+    <div class="form-group has-feedback">
+        <input type="text" id="UserName" class="form-control" placeholder="User Name" tabindex="4">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+    </div>
+    <div class="form-group has-feedback">
+        <input type="password" id="Password" class="form-control" placeholder="Password" tabindex="5">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+    </div>
+    <div class="form-group has-feedback">
+        <input type="text" id="Mobile" class="form-control" placeholder="Recovery Mobile" tabindex="6">
+        <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+    </div> 
+    <div class="form-group has-feedback">
+        <input type="email" id="Email" class="form-control" placeholder="Recovery Email" tabindex="7">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+    </div>
+    <div class="form-group has-feedback">
+        <select id="Question" class="form-control" tabindex="8">
+            <option value="What is your first pet name?">What is your first pet name?</option>
+            <option value="What is your nick name?">What is your nick name?</option>
+        </select>
+    </div>
+    <div class="form-group has-feedback">
+        <input type="text" id="Answer" class="form-control" placeholder="Recovery Answer" tabindex="9">
+        <span class="glyphicon glyphicon-check form-control-feedback"></span>
+    </div>
+    <div class="form-group has-feedback">
+        <input type="text" id="ProductKey" class="form-control" placeholder="Product Key" tabindex="10">
+        <span class="glyphicon glyphicon-registration-mark form-control-feedback"></span>
+    </div>
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="checkbox icheck">
+                <label>
+                    @Html.ActionLink("Activate a Product Key", "Index", "Activation", null, new { @target = "_new",@tabindex = "12" })
+                </label>
+            </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+            <button id="SaveBtn" onclick="Save();" class="btn btn-primary btn-block btn-flat" tabindex="11">Save</button>
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+
